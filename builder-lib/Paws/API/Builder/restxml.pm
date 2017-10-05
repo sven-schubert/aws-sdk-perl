@@ -49,6 +49,7 @@ package [% c.api %]::[% op_name %];
                [%- END -%]
              [%- END -%]
   [%- END -%]
+  [%- IF (param_name == 'ContentMD5') %], lazy => 1, default => sub{[% c.str_calc_ContentMD5 %]}[% END -%]
   [%- IF (traits.size) %], traits => [[% FOREACH trait=traits %]'[% trait %]'[% ',' IF (NOT loop.last) %][% END %]][% END -%]
   [%- IF (c.required_in_shape(shape,param_name)) %], required => 1[% END %]);
 [% END %]

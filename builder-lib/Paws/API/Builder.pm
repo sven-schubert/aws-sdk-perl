@@ -1133,6 +1133,14 @@ If not, it will return a [% out_shape = c.shapename_for_operation_output(op_name
     return $shape_name;
   }
 
+  sub str_calc_ContentMD5 {
+  	return q~require MIME::Base64;
+require Digest::MD5;
+my $value = MIME::Base64::encode_base64( Digest::MD5::md5( shift->Body ) );
+chomp $value;
+return $value;~;
+  }
+
   sub make_inner_class {
     my $self = shift;
     my $iclass = shift;

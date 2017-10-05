@@ -1,5 +1,6 @@
 local/
 blib/
+.idea/
 .build/
 _build/
 cover_db/

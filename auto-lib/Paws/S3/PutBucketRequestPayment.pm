@@ -2,7 +2,11 @@
 package Paws::S3::PutBucketRequestPayment;
   use Moose;
   has Bucket => (is => 'ro', isa => 'Str', uri_name => 'Bucket', traits => ['ParamInURI'], required => 1);
-  has ContentMD5 => (is => 'ro', isa => 'Str', header_name => 'Content-MD5', traits => ['ParamInHeader']);
+  has ContentMD5 => (is => 'ro', isa => 'Str', header_name => 'Content-MD5', lazy => 1, default => sub{require MIME::Base64;
+require Digest::MD5;
+my $value = MIME::Base64::encode_base64( Digest::MD5::md5( shift->Body ) );
+chomp $value;
+return $value;}, traits => ['ParamInHeader']);
   has RequestPaymentConfiguration => (is => 'ro', isa => 'Paws::S3::RequestPaymentConfiguration', required => 1);
 
   use MooseX::ClassAttribute;
